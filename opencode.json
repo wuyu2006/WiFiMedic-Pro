@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "compaction": {
+    "auto": true,
+    "prune": false,
+    "reserved": 8000
+  },
+  "providers": {
+    "deepseek": {
+      "models": {
+        "deepseek-flash": {
+          "limit": {
+            "context": 200000
+          }
+        }
+      }
+    }
+  }
+}

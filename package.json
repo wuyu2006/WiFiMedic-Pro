@@ -1,0 +1,51 @@
+{
+  "name": "wifimedic-pro",
+  "version": "1.0.0",
+  "description": "WiFiMedic Pro - 全维度网络与 Wi-Fi 诊断专家",
+  "main": "src/main.js",
+  "author": "WiFiMedic",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable --x64",
+    "pack": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "33.4.11",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "com.wifimedic.pro",
+    "productName": "WiFiMedic Pro",
+    "copyright": "Copyright © 2026 WiFiMedic",
+    "asar": true,
+    "compression": "maximum",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "build/icon.ico",
+      "package.json",
+      "!**/*.map"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "WiFiMedic-Pro-${version}-Portable.${ext}",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "portable": {
+      "artifactName": "WiFiMedic-Pro-${version}-Portable.${ext}",
+      "requestExecutionLevel": "user"
+    }
+  }
+}

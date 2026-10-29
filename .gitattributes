@@ -1,0 +1,11 @@
+* text=auto
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.apk binary
+*.exe binary
+*.zip binary
+*.jks binary
+*.keystore binary

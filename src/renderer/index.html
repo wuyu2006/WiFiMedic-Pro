@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none';">
+  <meta name="color-scheme" content="dark light">
+  <title>WiFiMedic Pro · 网络诊断专家</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></symbol>
+  <symbol id="i-ethernet" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 12h.01M11 12h.01M15 12h.01M19 12h.01M8 17v3M16 17v3"/></symbol>
+  <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></symbol>
+  <symbol id="i-stethoscope" viewBox="0 0 24 24"><path d="M4.5 3v6a4.5 4.5 0 0 0 9 0V3"/><path d="M4.5 3h2M11.5 3h2"/><path d="M9 13.5v2a5.5 5.5 0 0 0 11 0v-2"/><circle cx="20" cy="11" r="2"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h4a4 4 0 0 0 4-4V9a4 4 0 0 1 4-4h0M6 17V9a4 4 0 0 1 4-4h4"/></symbol>
+  <symbol id="i-wifi-search" viewBox="0 0 24 24"><path d="M2.5 9a15 15 0 0 1 19 0"/><path d="M6 12.55a10 10 0 0 1 9.8-2.55"/><path d="M9.2 16.11a5 5 0 0 1 4.8-1.2"/><circle cx="17.5" cy="17.5" r="3.5"/><path d="M20 20l2 2"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 5 14 2.5-7h4"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 6L3 18l3 3 5.7-5.7a4.5 4.5 0 0 0 6-6l-2.3 2.3-2.8-.8-.8-2.8 2.9-2.7Z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.2.6.76 1 1.4 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.8-4L3 10"/><path d="M3 4v6h6"/><path d="M4 13a8 8 0 0 0 14.8 4L21 14"/><path d="M21 20v-6h-6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 13 8-13 8V4Z"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v3h16v-3"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 21V9m0 0 4 4m-4-4-4 4"/><path d="M4 7V4h16v3"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-minimize" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-maximize" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1"/></symbol>
+  <symbol id="i-restore" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="1"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/></symbol>
+  <symbol id="i-dns" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/><path d="M7 7h.01M17 17h.01"/></symbol>
+  <symbol id="i-gateway" viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 16.5h.01M12 3v7m0 0-3-3m3 3 3-3"/></symbol>
+  <symbol id="i-packet" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-trace" viewBox="0 0 24 24"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 5h5a3 3 0 0 1 3 3v8a3 3 0 0 0 3 3h-1"/><path d="m9 2 3 3-3 3M15 22l-3-3 3-3"/></symbol>
+  <symbol id="i-ip" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 9h.01M7 12h.01M7 15h.01M11 12h6"/></symbol>
+  <symbol id="i-adapter" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 17v3M17 17v3M7 12h2M12 12h2M17 12h.01"/></symbol>
+  <symbol id="i-system" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-log" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+  <symbol id="i-speed" viewBox="0 0 24 24"><path d="M4.9 19a9 9 0 1 1 14.2 0"/><path d="m12 12 4-4"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4M6 12h3l2-3 3 6 2-3h2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 7.5-2"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M4 20v-3M9 20v-6M14 20V9M19 20V4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></symbol>
+  <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+  <symbol id="i-router" viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 16.5h.01M12 3v7M12 3 9 6M12 3l3 3M7 13V9a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 20h20"/></symbol>
+  <symbol id="i-smartphone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H6a4 4 0 0 1-.9-7.9A6 6 0 0 1 17 9.5a5 5 0 0 1 .5 9.5Z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 5.2A10.9 10.9 0 0 1 12 5c6.5 0 10 7 10 7a17.7 17.7 0 0 1-3.2 4.1"/><path d="M6.6 6.7C3.7 8.5 2 12 2 12s3.5 7 10 7c1.6 0 3.1-.4 4.4-1.1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+  <symbol id="i-bluetooth" viewBox="0 0 24 24"><path d="m7 7 10 10-5 4V3l5 4L7 17"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7 15h10"/></symbol>
+  <symbol id="i-cable" viewBox="0 0 24 24"><path d="M4 4v6a4 4 0 0 0 4 4h8a4 4 0 0 1 4 4v2"/><path d="M2 4h4M18 20h4"/></symbol>
+</svg>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 48 48" class="brand-svg" aria-hidden="true">
+          <path d="M11 21.5c7.6-6.1 18.4-6.1 26 0" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
+          <path d="M16.5 29c4.5-3.4 10.5-3.4 15 0" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
+          <circle cx="24" cy="36.5" r="2.7" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <strong>WiFiMedic <span>Pro</span></strong>
+        <small>网络诊断工具</small>
+      </div>
+    </div>
+
+    <div class="side-section-label">诊断</div>
+    <nav class="nav" id="mainNav">
+      <button class="nav-item active" data-view="dashboard">
+        <svg><use href="#i-dashboard"></use></svg><span>健康总览</span><em class="nav-dot"></em>
+      </button>
+      <button class="nav-item" data-view="diagnostic">
+        <svg><use href="#i-stethoscope"></use></svg><span>全面体检</span><em class="nav-badge">14</em>
+      </button>
+      <button class="nav-item" data-view="connectivity">
+        <svg><use href="#i-globe"></use></svg><span>连通性测试</span>
+      </button>
+    </nav>
+
+    <div class="side-section-label">网络</div>
+    <nav class="nav">
+      <button class="nav-item" data-view="channels">
+        <svg><use href="#i-route"></use></svg><span>网络通道</span>
+      </button>
+      <button class="nav-item" data-view="wifi">
+        <svg><use href="#i-wifi-search"></use></svg><span>Wi-Fi 管理</span>
+      </button>
+      <button class="nav-item" data-view="stability">
+        <svg><use href="#i-activity"></use></svg><span>速度与稳定</span>
+      </button>
+    </nav>
+
+    <div class="side-section-label">工具</div>
+    <nav class="nav">
+      <button class="nav-item" data-view="repair">
+        <svg><use href="#i-wrench"></use></svg><span>修复工具</span>
+      </button>
+      <button class="nav-item" data-view="reports">
+        <svg><use href="#i-file"></use></svg><span>报告中心</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="side-status">
+      <div class="side-status-head">
+        <span class="live-dot" id="sideLiveDot"></span>
+        <span id="sideStatusText">正在读取网络…</span>
+      </div>
+      <div class="side-status-line"><span>当前通道</span><b id="sideChannel">--</b></div>
+      <div class="side-status-line"><span>延迟</span><b id="sideLatency">--</b></div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="admin-chip" id="adminChip" title="当前权限">
+        <svg><use href="#i-shield"></use></svg><span>普通权限</span>
+      </div>
+      <button class="admin-relaunch" id="relaunchAdminBtn" title="以管理员身份重启">
+        <svg><use href="#i-power"></use></svg><span>管理员重启</span>
+      </button>
+      <div class="version-line">v1.0.0 · <span id="portableLabel">Windows</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="titlebar">
+      <div class="titlebar-drag">
+        <div class="crumb">
+          <span class="crumb-home">WiFiMedic</span>
+          <svg><use href="#i-chevron"></use></svg>
+          <span id="crumbCurrent">健康总览</span>
+        </div>
+        <div class="titlebar-center" id="titlebarHint">Ctrl+R 刷新网络配置</div>
+      </div>
+      <div class="titlebar-actions">
+        <button class="icon-btn" id="openPreferencesBtn" title="偏好设置（Ctrl+,）" aria-label="偏好设置"><svg><use href="#i-settings"></use></svg></button>
+        <button class="icon-btn" id="themeBtn" title="切换主题" aria-label="切换主题"><svg><use href="#i-sun"></use></svg></button>
+        <button class="icon-btn" id="refreshTopBtn" title="刷新网络状态" aria-label="刷新网络状态"><svg><use href="#i-refresh"></use></svg></button>
+        <div class="window-controls">
+          <button class="win-btn" id="winMinBtn" aria-label="最小化"><svg><use href="#i-minimize"></use></svg></button>
+          <button class="win-btn" id="winMaxBtn" aria-label="最大化"><svg><use href="#i-maximize"></use></svg></button>
+          <button class="win-btn close" id="winCloseBtn" aria-label="关闭"><svg><use href="#i-close"></use></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+      <!-- ================= DASHBOARD ================= -->
+      <section class="view active" id="view-dashboard">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">网络总览 <span class="eyebrow-dot"></span> <span id="dashboardTimestamp">等待读取</span></div>
+            <h1>网络健康总览</h1>
+            <p>自动识别当前主用通道，从链路、IP、DNS、网关到厂商节点，一眼看清问题在哪里。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="refreshDashboardBtn"><svg><use href="#i-refresh"></use></svg>刷新</button>
+            <button class="btn primary" id="runDiagnosticBtn"><svg><use href="#i-stethoscope"></use></svg>开始全面体检</button>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="card score-card">
+            <div class="card-topline"><span class="card-label">网络健康</span><span class="mini-pill" id="scorePill">待检测</span></div>
+            <div class="score-ring-wrap">
+              <div class="score-ring" id="scoreRing">
+                <svg viewBox="0 0 160 160" width="160" height="160">
+                  <circle class="ring-track" cx="80" cy="80" r="68"></circle>
+                  <circle class="ring-value" id="scoreArc" cx="80" cy="80" r="68"></circle>
+                </svg>
+                <div class="score-center">
+                  <strong id="heroScore">--</strong>
+                  <span>健康分</span>
+                </div>
+              </div>
+              <div class="score-copy">
+                <h2 id="heroGrade">等待检测</h2>
+                <p id="heroSummary">正在读取当前网络配置，随后可进行一键全网连通测试或全面体检。</p>
+                <div class="score-tags">
+                  <span class="tag"><svg><use href="#i-shield"></use></svg><span id="tagIssues">0 个风险</span></span>
+                  <span class="tag"><svg><use href="#i-clock"></use></svg><span id="tagChecked">尚未体检</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card channel-card">
+            <div class="card-topline"><span class="card-label">当前通道</span><span class="mini-pill live"><span class="live-dot"></span>实时</span></div>
+            <div class="channel-hero">
+              <div class="channel-icon" id="channelIcon"><svg><use href="#i-ethernet"></use></svg></div>
+              <div>
+                <div class="channel-type" id="channelType">正在识别主用通道</div>
+                <h2 id="channelName">--</h2>
+                <div class="channel-sub" id="channelSub">正在读取网卡与路由…</div>
+              </div>
+            </div>
+            <div class="topology" id="topology">
+              <div class="topo-node">
+                <div class="topo-icon"><svg><use href="#i-laptop"></use></svg></div>
+                <strong>本机</strong><small id="topoPcIp">--</small>
+              </div>
+              <div class="topo-line"><span></span></div>
+              <div class="topo-node">
+                <div class="topo-icon"><svg><use href="#i-router"></use></svg></div>
+                <strong>网关</strong><small id="topoGateway">--</small>
+              </div>
+              <div class="topo-line"><span></span></div>
+              <div class="topo-node">
+                <div class="topo-icon"><svg><use href="#i-dns"></use></svg></div>
+                <strong>DNS</strong><small id="topoDns">--</small>
+              </div>
+              <div class="topo-line"><span></span></div>
+              <div class="topo-node cloud">
+                <div class="topo-icon"><svg><use href="#i-cloud"></use></svg></div>
+                <strong>互联网</strong><small id="topoInternet">待测试</small>
+              </div>
+            </div>
+            <div class="channel-metrics">
+              <div><span>链路速率</span><b id="channelSpeed">--</b></div>
+              <div><span>IP 获取</span><b id="channelDhcp">--</b></div>
+              <div><span>跃点</span><b id="channelMetric">--</b></div>
+              <div><span>代理 / VPN</span><b id="channelProxy">--</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="card kpi-card"><div class="kpi-icon cyan"><svg><use href="#i-activity"></use></svg></div><div><span>平均延迟</span><strong id="kpiLatency">--</strong><small id="kpiLatencyHint">等待实时采样</small></div></div>
+          <div class="card kpi-card"><div class="kpi-icon amber"><svg><use href="#i-packet"></use></svg></div><div><span>丢包率</span><strong id="kpiLoss">--</strong><small id="kpiLossHint">最近 60 次采样</small></div></div>
+          <div class="card kpi-card"><div class="kpi-icon violet"><svg><use href="#i-signal"></use></svg></div><div><span>Wi-Fi 信号</span><strong id="kpiSignal">--</strong><small id="kpiSignalHint">未连接无线网络</small></div></div>
+          <div class="card kpi-card"><div class="kpi-icon blue"><svg><use href="#i-globe"></use></svg></div><div><span>连通节点</span><strong id="kpiNodes">--</strong><small id="kpiNodesHint">尚未进行全网测试</small></div></div>
+        </div>
+
+        <div class="dash-overview-grid">
+          <div class="card issues-card">
+            <div class="card-head">
+              <div><span class="card-label">问题与建议</span><h3>问题与建议</h3></div>
+              <button class="text-btn muted" id="viewAllIssuesBtn">查看全部<svg><use href="#i-chevron"></use></svg></button>
+            </div>
+            <div class="issue-list" id="dashIssues"><div class="empty-state small"><svg><use href="#i-shield"></use></svg><p>正在检查网络配置…</p></div></div>
+          </div>
+
+          <div class="card quick-card">
+            <div class="card-head"><div><span class="card-label">快捷操作</span><h3>快捷诊断</h3></div></div>
+            <div class="quick-grid">
+              <button class="quick-action" id="quickConnectivityBtn">
+                <span class="qa-icon cyan"><svg><use href="#i-zap"></use></svg></span>
+                <span><b>一键连通测试</b><small>Ping 各大厂商节点</small></span>
+                <svg class="qa-arrow"><use href="#i-arrow-right"></use></svg>
+              </button>
+              <button class="quick-action" id="quickSpeedBtn">
+                <span class="qa-icon amber"><svg><use href="#i-speed"></use></svg></span>
+                <span><b>网络测速</b><small>下载 / 上传 / 抖动</small></span>
+                <svg class="qa-arrow"><use href="#i-arrow-right"></use></svg>
+              </button>
+              <button class="quick-action" id="quickWifiBtn">
+                <span class="qa-icon blue"><svg><use href="#i-wifi-search"></use></svg></span>
+                <span><b>扫描 Wi-Fi</b><small>信号 / 信道 / 安全</small></span>
+                <svg class="qa-arrow"><use href="#i-arrow-right"></use></svg>
+              </button>
+              <button class="quick-action" id="quickRepairBtn">
+                <span class="qa-icon violet"><svg><use href="#i-wrench"></use></svg></span>
+                <span><b>网络修复</b><small>DNS / 网卡 / Winsock</small></span>
+                <svg class="qa-arrow"><use href="#i-arrow-right"></use></svg>
+              </button>
+            </div>
+            <div class="quick-tip"><svg><use href="#i-info"></use></svg><span id="quickTipText">实时延迟曲线与稳定性监控在「速度与稳定」中持续采集。</span></div>
+          </div>
+        </div>
+
+        <div class="dashboard-footnote">
+          <span>诊断结果基于本机网络栈与外部探测节点，仅供排障参考。</span>
+          <button class="text-btn muted" id="dashReportLink">报告中心<svg><use href="#i-chevron"></use></svg></button>
+        </div>
+      </section>
+
+      <!-- ================= DIAGNOSTIC ================= -->
+      <section class="view" id="view-diagnostic">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">系统体检 <span class="eyebrow-dot"></span> 14 项检查</div>
+            <h1>全面网络体检</h1>
+            <p>从系统环境到 Wi-Fi 射频，逐层定位电脑连不上网、网速慢、掉线、DNS 异常等问题的根因。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="diagRefreshBtn"><svg><use href="#i-refresh"></use></svg>刷新配置</button>
+            <button class="btn primary" id="runDiagnosticMainBtn"><svg><use href="#i-play"></use></svg>开始体检</button>
+          </div>
+        </div>
+
+        <div class="diag-hero card">
+          <div class="diag-hero-left">
+            <div class="diag-orbit"><div class="orbit-ring"></div><div class="orbit-core"><svg><use href="#i-stethoscope"></use></svg></div></div>
+            <div>
+              <span class="card-label">体检引擎</span>
+              <h2 id="diagHeroTitle">准备就绪</h2>
+              <p id="diagHeroText">点击「开始体检」，将依次执行 14 项检查，预计耗时 40–70 秒。</p>
+            </div>
+          </div>
+          <div class="diag-progress-wrap">
+            <div class="diag-progress-meta"><span id="diagProgressLabel">尚未开始</span><b id="diagProgressPct">0%</b></div>
+            <div class="progress-track"><div class="progress-fill" id="diagProgressBar"></div></div>
+            <div class="diag-progress-sub" id="diagProgressSub">检查期间请保持网络连接</div>
+          </div>
+        </div>
+
+        <div class="diag-grid">
+          <div class="card stage-card">
+            <div class="card-head"><div><span class="card-label">检查项目</span><h3>检查阶段</h3></div><span class="mini-pill" id="stageCountPill">0 / 14</span></div>
+            <div class="stage-list" id="stageList"></div>
+          </div>
+          <div class="card console-card">
+            <div class="console-head">
+              <span class="console-title"><svg><use href="#i-activity"></use></svg>诊断日志</span>
+              <button class="console-clear" id="clearLogBtn" title="清空日志"><svg><use href="#i-trash"></use></svg></button>
+            </div>
+            <div class="console-body" id="diagLog"><div class="console-line info"><span class="c-time">--:--:--</span><span class="c-tag">系统</span><span>等待开始全面体检…</span></div></div>
+            <div class="console-foot"><span><span class="live-dot"></span><span id="consoleStatus">空闲</span></span><span id="consoleDuration">--</span></div>
+          </div>
+        </div>
+
+        <div class="diag-result" id="diagResult">
+          <div class="card result-hero">
+            <div class="result-score" id="resultScore">--</div>
+            <div class="result-copy">
+              <div class="result-kicker">体检结果</div>
+              <h2 id="resultTitle">体检完成后在此查看结论</h2>
+              <p id="resultSummary">开始一次全面体检，系统会生成健康评分、问题清单与可执行的修复建议。</p>
+              <div class="result-actions">
+                <button class="btn primary small" id="resultExportHtml"><svg><use href="#i-file"></use></svg>导出 HTML 报告</button>
+                <button class="btn ghost small" id="resultExportJson"><svg><use href="#i-database"></use></svg>导出 JSON</button>
+                <button class="btn ghost small" id="resultCopy"><svg><use href="#i-copy"></use></svg>复制摘要</button>
+                <button class="btn ghost small" id="resultGoReport"><svg><use href="#i-chevron"></use></svg>报告中心</button>
+              </div>
+            </div>
+          </div>
+          <div class="result-grid">
+            <div class="card result-issues"><div class="card-head"><div><span class="card-label">问题与建议</span><h3>体检发现</h3></div></div><div id="resultIssues"><div class="empty-state small"><svg><use href="#i-info"></use></svg><p>暂无体检结果</p></div></div></div>
+            <div class="card result-stats"><div class="card-head"><div><span class="card-label">关键指标</span><h3>关键指标</h3></div></div><div class="result-metric-grid" id="resultMetrics"><div class="empty-state small"><p>等待体检数据</p></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CHANNELS ================= -->
+      <section class="view" id="view-channels">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">通道与路由 <span class="eyebrow-dot"></span> 自动识别</div>
+            <h1>网络通道</h1>
+            <p>自动识别当前主用通道是有线还是无线，也可以手动选择线路单独检查，或设置系统优先级。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="compareChannelsBtn"><svg><use href="#i-flask"></use></svg>对比所有线路</button>
+            <button class="btn primary" id="refreshChannelsBtn"><svg><use href="#i-refresh"></use></svg>刷新通道</button>
+          </div>
+        </div>
+
+        <div class="active-banner card" id="channelBanner">
+          <div class="banner-icon"><svg><use href="#i-route"></use></svg></div>
+          <div class="banner-copy"><span class="card-label">系统首选通道</span><h2 id="channelBannerTitle">正在识别主用通道…</h2><p id="channelBannerText">Windows 会综合默认路由、网卡跃点和链路状态选择上网通道。</p></div>
+          <div class="banner-badges" id="channelBannerBadges"></div>
+        </div>
+
+        <div class="adapter-grid" id="adapterGrid"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+
+        <div class="two-col">
+          <div class="card route-card">
+            <div class="card-head"><div><span class="card-label">默认路由</span><h3>默认路由</h3></div><span class="mini-pill" id="routeCount">0 条</span></div>
+            <div class="table-wrap"><table class="data-table" id="routeTable"><thead><tr><th>网卡</th><th>网关</th><th>路由跃点</th><th>接口跃点</th><th>有效跃点</th></tr></thead><tbody></tbody></table></div>
+            <div class="route-note"><b>默认线路由 Windows 自动选择。</b> 有效跃点越低，优先级越高；手动调整跃点前请确认不会断开远程连接。</div>
+          </div>
+          <div class="card proxy-card">
+            <div class="card-head"><div><span class="card-label">环境</span><h3>代理与虚拟网络</h3></div></div>
+            <div id="proxyPanel" class="proxy-panel"></div>
+          </div>
+        </div>
+
+        <div class="card compare-card" id="compareCard">
+          <div class="card-head"><div><span class="card-label">线路对比</span><h3>线路对比</h3></div><span class="mini-pill" id="compareStatus">未测试</span></div>
+          <div class="compare-body" id="compareBody"><div class="empty-state small"><svg><use href="#i-flask"></use></svg><p>点击「对比所有线路」，分别通过每张物理网卡测试网关与外网延迟。</p></div></div>
+        </div>
+
+        <div class="hint-row">
+          <div class="hint"><svg><use href="#i-info"></use></svg><span>手动切换检查线路只会改变诊断目标，不会修改系统网络配置。</span></div>
+          <div class="hint"><svg><use href="#i-shield"></use></svg><span>「设为优先通道」会调整网卡跃点，需要管理员权限，并会改变系统默认路由。</span></div>
+        </div>
+      </section>
+
+      <!-- ================= WIFI ================= -->
+      <section class="view" id="view-wifi">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">无线网络 <span class="eyebrow-dot"></span> 信号、安全与密码</div>
+            <h1>Wi-Fi 管理</h1>
+            <p>查看当前无线链路、周边网络与信道质量，读取本机保存的 Wi-Fi 密码并进行核对。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="wifiOpenSettingsBtn"><svg><use href="#i-settings"></use></svg>Windows 设置</button>
+            <button class="btn primary" id="scanWifiBtn"><svg><use href="#i-wifi-search"></use></svg>扫描 Wi-Fi</button>
+          </div>
+        </div>
+
+        <div id="wifiEmpty" class="empty-hero card">
+          <div class="empty-art"><svg><use href="#i-wifi"></use></svg><span class="empty-pulse"></span></div>
+          <div><span class="card-label">无线适配器</span><h2>正在读取无线网卡…</h2><p>如果本机没有无线网卡，本页会自动切换为有线通道提示。</p></div>
+        </div>
+
+        <div class="wifi-grid" id="wifiMain">
+          <div class="card current-wifi-card">
+            <div class="card-topline"><span class="card-label">当前网络</span><span class="mini-pill" id="wifiStatePill">未连接</span></div>
+            <div class="current-wifi-main">
+              <div class="signal-orbit">
+                <svg viewBox="0 0 160 160" width="160" height="160">
+                  <circle class="ring-track" cx="80" cy="80" r="68"></circle>
+                  <circle class="ring-value" id="wifiSignalArc" cx="80" cy="80" r="68"></circle>
+                </svg>
+                <div class="signal-center"><strong id="wifiSignalValue">--</strong><span>信号强度</span></div>
+              </div>
+              <div class="wifi-identity">
+                <h2 id="wifiSsid">未连接 Wi-Fi</h2>
+                <div class="wifi-bssid" id="wifiBssid">--</div>
+                <div class="wifi-badges" id="wifiBadges"></div>
+                <div class="signal-bars" id="wifiSignalBars"><i></i><i></i><i></i><i></i><i></i></div>
+              </div>
+            </div>
+            <div class="wifi-detail-grid" id="wifiDetails">
+              <div><span>频段 / 信道</span><b>--</b></div>
+              <div><span>无线电类型</span><b>--</b></div>
+              <div><span>接收 / 发送速率</span><b>--</b></div>
+              <div><span>身份验证</span><b>--</b></div>
+              <div><span>加密方式</span><b>--</b></div>
+              <div><span>配置文件</span><b>--</b></div>
+            </div>
+          </div>
+
+          <div class="card channel-card">
+            <div class="card-head"><div><span class="card-label">信道拥挤度</span><h3>信道拥挤度</h3></div><div class="band-switch" id="bandSwitch"><button class="active" data-band="2.4G">2.4G</button><button data-band="5G">5G</button><button data-band="6G">6G</button></div></div>
+            <div class="channel-chart" id="channelChart"><div class="empty-state small"><p>扫描后显示周边信道占用</p></div></div>
+            <div class="recommend-row" id="wifiRecommend"><span class="rec-label"><svg><use href="#i-zap"></use></svg>推荐信道</span><span class="rec-chip">--</span></div>
+          </div>
+        </div>
+
+        <div class="wifi-lower-grid">
+          <div class="card nearby-card">
+            <div class="card-head">
+              <div><span class="card-label">周边网络</span><h3>周边 Wi-Fi</h3></div>
+              <div class="table-tools"><div class="search-box"><svg><use href="#i-search"></use></svg><input id="wifiSearch" type="search" placeholder="搜索 SSID / BSSID"></div><span class="mini-pill" id="wifiCountPill">0 个</span></div>
+            </div>
+            <div class="table-wrap wifi-table-wrap"><table class="data-table wifi-table" id="wifiTable"><thead><tr><th>网络</th><th>信号</th><th>频段 / 信道</th><th>速率类型</th><th>安全</th><th>BSSID</th></tr></thead><tbody></tbody></table></div>
+          </div>
+          <div class="card wifi-advice-card">
+            <div class="card-head"><div><span class="card-label">优化建议</span><h3>无线优化建议</h3></div></div>
+            <div id="wifiAdvice" class="advice-list"><div class="empty-state small"><p>扫描后生成建议</p></div></div>
+          </div>
+        </div>
+
+        <div class="card wifi-security-card">
+          <div class="card-head"><div><span class="card-label">安全检查</span><h3>无线安全</h3></div></div>
+          <div id="wifiSecurity" class="security-grid"><div class="empty-state small"><p>正在检查无线安全配置…</p></div></div>
+        </div>
+
+        <div class="card wifi-password-card" id="wifiPasswordCard">
+          <div class="card-head">
+            <div>
+              <span class="card-label">凭据管理</span>
+              <h3>Wi-Fi 密码核对</h3>
+            </div>
+            <div class="password-head-actions">
+              <span class="mini-pill" id="wifiPasswordStatus">仅本机处理</span>
+              <button class="btn ghost small" id="wifiProfilesRefreshBtn"><svg><use href="#i-refresh"></use></svg>刷新</button>
+            </div>
+          </div>
+          <div class="password-grid">
+            <div class="password-current" id="wifiCurrentPasswordPanel">
+              <div class="password-current-head">
+                <span class="password-lock" id="wifiPasswordLockIcon"><svg><use href="#i-lock"></use></svg></span>
+                <div>
+                  <small>当前无线网络</small>
+                  <h4 id="wifiPasswordSsid">未连接 Wi-Fi</h4>
+                </div>
+              </div>
+              <div class="password-secret" id="wifiPasswordValue">••••••••</div>
+              <div class="password-actions">
+                <button class="btn ghost small" id="wifiRevealPasswordBtn"><svg><use href="#i-eye"></use></svg>显示密码</button>
+                <button class="btn ghost small" id="wifiCopyPasswordBtn"><svg><use href="#i-copy"></use></svg>复制</button>
+              </div>
+              <p class="password-note" id="wifiPasswordHint">密码只在本机读取，不会写入报告或上传。</p>
+            </div>
+            <div class="password-verify">
+              <label class="field-label" for="wifiVerifyTarget">核对对象</label>
+              <select class="select" id="wifiVerifyTarget" aria-label="选择要核对的 Wi-Fi 网络"></select>
+              <label class="field-label" for="wifiPasswordInput">输入密码</label>
+              <div class="password-input-row">
+                <input class="text-input" id="wifiPasswordInput" type="password" placeholder="输入密码进行核对" autocomplete="off" spellcheck="false">
+                <button class="btn primary small" id="wifiVerifyBtn"><svg><use href="#i-check"></use></svg>核对</button>
+              </div>
+              <div class="password-verify-result" id="wifiVerifyResult">选择网络并输入密码，核对是否与本机保存的一致。</div>
+            </div>
+          </div>
+          <div class="password-saved">
+            <div class="password-saved-head">
+              <div><span class="card-label">已保存网络</span><span class="password-count" id="wifiProfileCount">0 个</span></div>
+              <span class="password-saved-hint">点击网络查看密码或发起连接</span>
+            </div>
+            <div class="password-profile-list" id="wifiProfileList">
+              <div class="empty-state small"><p>正在读取本机保存的无线网络…</p></div>
+            </div>
+          </div>
+          <div class="wifi-capability-row" id="wifiCapabilities"></div>
+        </div>
+      </section>
+
+      <!-- ================= CONNECTIVITY ================= -->
+      <section class="view" id="view-connectivity">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">连通性 <span class="eyebrow-dot"></span> 多厂商探测</div>
+            <h1>连通性测试</h1>
+            <p>一键 Ping 国内主流厂商、公共 DNS 与国际服务节点。所有已启用目标均可连通，才算检查通过。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="resetTargetsBtn"><svg><use href="#i-refresh"></use></svg>恢复默认</button>
+            <button class="btn primary" id="runConnectivityBtn"><svg><use href="#i-zap"></use></svg>一键全网连通测试</button>
+          </div>
+        </div>
+
+        <div class="connectivity-hero card" id="connectivityBanner">
+          <div class="conn-hero-icon" id="connHeroIcon"><svg><use href="#i-globe"></use></svg></div>
+          <div class="conn-hero-copy">
+            <span class="card-label">检测结论</span>
+            <h2 id="connVerdict">等待测试</h2>
+            <p id="connVerdictText">选择需要测试的厂商节点，然后点击「一键全网连通测试」。</p>
+          </div>
+          <div class="conn-hero-stats">
+            <div><span>已启用</span><b id="connEnabled">--</b></div>
+            <div><span>可达</span><b id="connReachable">--</b></div>
+            <div><span>平均延迟</span><b id="connAvg">--</b></div>
+          </div>
+          <div class="conn-progress"><div class="progress-track"><div class="progress-fill" id="connProgressBar"></div></div><span id="connProgressText">就绪</span></div>
+        </div>
+
+        <div class="targets-card card">
+          <div class="card-head">
+            <div><span class="card-label">测试目标</span><h3>测试目标</h3></div>
+            <div class="target-actions"><button class="text-btn muted" id="selectRequiredBtn">仅必测</button><button class="text-btn muted" id="selectAllTargetsBtn">全部启用</button><button class="text-btn" id="addTargetBtn"><svg><use href="#i-plus"></use></svg>添加自定义</button></div>
+          </div>
+          <div class="gateway-target" id="gatewayTarget"><div class="target-check locked"><svg><use href="#i-check"></use></svg></div><div class="target-main"><b>默认网关</b><small>本地路由器 · 自动加入</small></div><div class="target-ip" id="gatewayTargetIp">--</div><span class="target-tag">必测</span></div>
+          <div id="targetGroups" class="target-groups"></div>
+        </div>
+
+        <div class="conn-summary-grid">
+          <div class="card conn-stat-card"><span>总目标</span><strong id="connStatTotal">--</strong><small>含网关</small></div>
+          <div class="card conn-stat-card"><span>可达</span><strong id="connStatReachable">--</strong><small>收到 ICMP 回复</small></div>
+          <div class="card conn-stat-card"><span>平均延迟</span><strong id="connStatAvg">--</strong><small>所有可达节点</small></div>
+          <div class="card conn-stat-card"><span>丢包</span><strong id="connStatLoss">--</strong><small>平均丢包率</small></div>
+          <div class="card conn-stat-card"><span>耗时</span><strong id="connStatDuration">--</strong><small>本次测试</small></div>
+        </div>
+
+        <div class="card results-card">
+          <div class="card-head"><div><span class="card-label">节点结果</span><h3>节点结果</h3></div><div class="result-tools"><button class="text-btn muted" id="copyConnBtn"><svg><use href="#i-copy"></use></svg>复制</button><button class="text-btn muted" id="exportConnBtn"><svg><use href="#i-file"></use></svg>导出</button></div></div>
+          <div id="connectivityResults" class="ping-results"><div class="empty-state"><svg><use href="#i-globe"></use></svg><h3>还没有测试结果</h3><p>点击右上角「一键全网连通测试」开始。</p></div></div>
+        </div>
+
+        <div class="hint-row">
+          <div class="hint"><svg><use href="#i-info"></use></svg><span>部分厂商会主动屏蔽 ICMP，Ping 失败不一定代表网页无法访问；可结合 TCP / HTTPS 结果判断。</span></div>
+          <div class="hint"><svg><use href="#i-shield"></use></svg><span>国际节点默认关闭；开启后会计入「全部已启用节点可达」的通过条件。</span></div>
+        </div>
+      </section>
+
+      <!-- ================= STABILITY ================= -->
+      <section class="view" id="view-stability">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">速度与稳定 <span class="eyebrow-dot"></span> 实时质量</div>
+            <h1>速度与稳定</h1>
+            <p>持续采样延迟、丢包和抖动，并用真实下载 / 上传流量评估带宽与缓冲膨胀。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="stabilityMonitorBtn"><svg><use href="#i-monitor"></use></svg>停止实时监控</button>
+            <button class="btn primary" id="runSpeedBtn"><svg><use href="#i-speed"></use></svg>开始测速</button>
+          </div>
+        </div>
+
+        <div class="stability-grid">
+          <div class="card live-quality-card">
+            <div class="card-head"><div><span class="card-label">实时质量</span><h3>实时网络质量</h3></div><span class="mini-pill live" id="qualityLivePill"><span class="live-dot"></span>采集中</span></div>
+            <div class="quality-metrics">
+              <div><span>互联网延迟</span><strong id="qualityLatency">--</strong><small>ms</small></div>
+              <div><span>网关延迟</span><strong id="qualityGateway">--</strong><small>ms</small></div>
+              <div><span>抖动</span><strong id="qualityJitter">--</strong><small>ms</small></div>
+              <div><span>采样丢包</span><strong id="qualityLoss">--</strong><small>%</small></div>
+            </div>
+            <div class="chart-wrap large"><canvas id="stabilityChart"></canvas><div class="chart-empty" id="stabilityChartEmpty">正在采集实时质量数据…</div></div>
+            <div class="chart-foot"><span><span class="live-dot"></span>互联网 / 网关双通道</span><span id="qualitySamples">0 个样本</span></div>
+          </div>
+
+          <div class="card speed-card">
+            <div class="card-head"><div><span class="card-label">带宽测速</span><h3>带宽测速</h3></div><span class="mini-pill" id="speedStatePill">就绪</span></div>
+            <div class="speed-gauge-wrap">
+              <div class="speed-gauge" id="speedGauge">
+                <div class="speed-gauge-inner"><strong id="speedValue">--</strong><span>Mbps</span><small>下载</small></div>
+              </div>
+            </div>
+            <div class="speed-progress"><div class="progress-track"><div class="progress-fill" id="speedProgressBar"></div></div><span id="speedProgressText">点击开始测速</span></div>
+            <div class="speed-results">
+              <div><span><svg><use href="#i-download"></use></svg>下载</span><b id="speedDownload">--</b></div>
+              <div><span><svg><use href="#i-upload"></use></svg>上传</span><b id="speedUpload">--</b></div>
+              <div><span><svg><use href="#i-activity"></use></svg>空闲延迟</span><b id="speedIdle">--</b></div>
+              <div><span><svg><use href="#i-packet"></use></svg>缓冲膨胀</span><b id="speedBufferbloat">--</b></div>
+            </div>
+            <label class="switch-row"><span>同时测试上传速度</span><input type="checkbox" id="includeUploadToggle"><i class="switch"></i></label>
+            <div class="speed-note" id="speedNote">单线程测速，结果受测速节点、运营商与 Wi-Fi 环境影响。</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card deep-test-card">
+            <div class="card-head"><div><span class="card-label">深度稳定性</span><h3>深度稳定性采样</h3></div><button class="btn ghost small" id="runStabilityDeepBtn"><svg><use href="#i-play"></use></svg>运行 20 次采样</button></div>
+            <div id="deepStabilityResult"><div class="empty-state small"><svg><use href="#i-activity"></use></svg><p>运行深度采样，评估网关与外网的丢包、抖动和最大延迟。</p></div></div>
+          </div>
+          <div class="card quality-tips-card">
+            <div class="card-head"><div><span class="card-label">质量参考</span><h3>质量参考</h3></div></div>
+            <div class="quality-guide">
+              <div><span class="q-dot excellent"></span><b>优秀</b><p>延迟 &lt; 40ms，抖动 &lt; 10ms，丢包 0%</p></div>
+              <div><span class="q-dot good"></span><b>良好</b><p>延迟 &lt; 80ms，抖动 &lt; 30ms，丢包 &lt; 1%</p></div>
+              <div><span class="q-dot fair"></span><b>一般</b><p>延迟 &lt; 150ms，抖动 &lt; 50ms，丢包 &lt; 3%</p></div>
+              <div><span class="q-dot poor"></span><b>较差</b><p>延迟 &gt; 150ms，抖动 &gt; 50ms 或丢包 &gt; 3%</p></div>
+            </div>
+            <div class="guide-note"><svg><use href="#i-info"></use></svg><span>游戏更关注抖动与丢包，视频会议更关注上行带宽与稳定性。</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= REPAIR ================= -->
+      <section class="view" id="view-repair">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">修复工具 <span class="eyebrow-dot"></span> 系统操作</div>
+            <h1>修复工具</h1>
+            <p>从安全的缓存刷新到协议栈重置，按风险等级提供常用修复动作。所有操作都会记录输出。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="openNetworkSettingsBtn"><svg><use href="#i-settings"></use></svg>Windows 网络设置</button>
+            <button class="btn primary" id="relaunchAdminMainBtn"><svg><use href="#i-shield"></use></svg>管理员重启</button>
+          </div>
+        </div>
+
+        <div class="admin-banner card" id="adminBanner">
+          <div class="banner-icon"><svg><use href="#i-shield"></use></svg></div>
+          <div class="banner-copy"><span class="card-label">权限</span><h2 id="adminBannerTitle">普通权限模式</h2><p id="adminBannerText">安全操作可直接执行；修改网卡、DNS、Winsock 等操作需要管理员权限。</p></div>
+          <div class="banner-badges" id="adminBannerBadges"></div>
+        </div>
+
+        <div class="repair-section">
+          <div class="section-head"><div><span class="card-label">安全操作</span><h2>安全操作</h2></div><span class="section-hint">不会中断网络</span></div>
+          <div class="repair-grid" id="safeRepairs"></div>
+        </div>
+        <div class="repair-section">
+          <div class="section-head"><div><span class="card-label">高级操作</span><h2>高级操作</h2></div><span class="section-hint warning">可能短暂断网</span></div>
+          <div class="repair-grid" id="advancedRepairs"></div>
+        </div>
+        <div class="repair-section">
+          <div class="section-head"><div><span class="card-label">高风险</span><h2>深度重置</h2></div><span class="section-hint danger">需要重启电脑</span></div>
+          <div class="repair-grid" id="dangerRepairs"></div>
+        </div>
+
+        <div class="card repair-log-card">
+          <div class="card-head"><div><span class="card-label">执行日志</span><h3>执行日志</h3></div><button class="text-btn muted" id="clearRepairLogBtn"><svg><use href="#i-trash"></use></svg>清空</button></div>
+          <div class="repair-log" id="repairLog"><div class="empty-state small"><p>执行修复操作后，这里会显示命令输出与结果。</p></div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="card settings-shortcuts">
+            <div class="card-head"><div><span class="card-label">系统快捷入口</span><h3>系统网络入口</h3></div></div>
+            <div class="shortcut-grid">
+              <button data-settings-page="network"><svg><use href="#i-globe"></use></svg><span>网络状态</span></button>
+              <button data-settings-page="wifi"><svg><use href="#i-wifi"></use></svg><span>Wi-Fi 设置</span></button>
+              <button data-settings-page="adapter"><svg><use href="#i-adapter"></use></svg><span>适配器选项</span></button>
+              <button data-settings-page="proxy"><svg><use href="#i-shield"></use></svg><span>代理设置</span></button>
+            </div>
+          </div>
+          <div class="card data-card">
+            <div class="card-head"><div><span class="card-label">本机数据</span><h3>数据与日志</h3></div></div>
+            <p>设置、体检报告与修复备份保存在本机，不上传云端。</p>
+            <div class="data-path" id="dataPath">--</div>
+            <button class="btn ghost small" id="openDataDirBtn"><svg><use href="#i-folder"></use></svg>打开数据目录</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= REPORTS ================= -->
+      <section class="view" id="view-reports">
+        <div class="view-head">
+          <div>
+            <div class="eyebrow">报告与设置 <span class="eyebrow-dot"></span> 仅存本机</div>
+            <h1>报告中心</h1>
+            <p>查看历史体检结果、导出可分享的 HTML / JSON 报告，并管理本机偏好设置。</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn ghost" id="exportCurrentHtmlBtn"><svg><use href="#i-file"></use></svg>导出当前 HTML</button>
+            <button class="btn ghost" id="clearHistoryBtn"><svg><use href="#i-trash"></use></svg>清空历史</button>
+          </div>
+        </div>
+
+        <div class="reports-grid">
+          <div class="card history-card">
+            <div class="card-head"><div><span class="card-label">历史报告</span><h3>历史体检</h3></div><span class="mini-pill" id="historyCountPill">0 份</span></div>
+            <div id="historyList" class="history-list"><div class="empty-state small"><svg><use href="#i-file"></use></svg><p>完成一次全面体检后，报告会自动保存在这里。</p></div></div>
+          </div>
+          <div class="card report-detail-card" id="reportDetailCard">
+            <div class="card-head"><div><span class="card-label">报告详情</span><h3>报告详情</h3></div><div class="result-tools" id="reportDetailTools"></div></div>
+            <div id="reportDetail"><div class="empty-state"><svg><use href="#i-file"></use></svg><h3>尚未选择报告</h3><p>从左侧选择一份历史报告，或先完成一次全面体检。</p></div></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card settings-card">
+            <div class="card-head"><div><span class="card-label">偏好设置</span><h3>偏好设置</h3></div></div>
+            <div class="settings-list">
+              <div class="setting-scale-row">
+                <span class="setting-scale-copy"><b>界面字号</b><small>1080p 屏幕建议使用“舒适”，需要更大可选“特大”</small></span>
+                <div class="segmented-control" id="uiScaleControl" role="group" aria-label="界面字号">
+                  <button type="button" data-ui-scale="1">标准</button>
+                  <button type="button" data-ui-scale="1.2" class="active" aria-pressed="true">舒适</button>
+                  <button type="button" data-ui-scale="1.35">特大</button>
+                </div>
+              </div>
+              <label class="switch-row"><span><b>自动保存体检历史</b><small>最多保留 30 份报告</small></span><input type="checkbox" id="autoSaveToggle"><i class="switch"></i></label>
+              <label class="switch-row"><span><b>测速时测试上传</b><small>会增加约 3–5 秒</small></span><input type="checkbox" id="uploadToggle"><i class="switch"></i></label>
+              <label class="switch-row"><span><b>浅色主题</b><small>适合明亮环境</small></span><input type="checkbox" id="themeToggle"><i class="switch"></i></label>
+            </div>
+            <div class="settings-note"><svg><use href="#i-info"></use></svg><span>所有设置保存在本机，不会上传。</span></div>
+          </div>
+          <div class="card system-card">
+            <div class="card-head"><div><span class="card-label">系统信息</span><h3>系统信息</h3></div></div>
+            <div class="system-info-grid" id="systemInfo"><div class="empty-state small"><p>正在读取系统信息…</p></div></div>
+            <div class="about-line"><span>WiFiMedic Pro v1.0.0</span><span id="aboutRuntime">Electron / Windows</span></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-backdrop" id="modalBackdrop" hidden>
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-head"><div><span class="modal-kicker" id="modalKicker">确认操作</span><h2 id="modalTitle">确认操作</h2></div><button class="icon-btn" id="modalCloseBtn" aria-label="关闭"><svg><use href="#i-close"></use></svg></button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+<div class="loading-overlay" id="loadingOverlay" hidden><div class="loader-ring"></div><span id="loadingText">正在处理…</span></div>
+<script src="js/app.js"></script>
+</body>
+</html>

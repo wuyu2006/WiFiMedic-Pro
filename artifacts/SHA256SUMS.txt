@@ -1,0 +1,7 @@
+WiFiMedic Pro 1.0.0 — GitHub 成品 SHA-256 校验值
+生成日期：2026-10-29
+
+5b88e810cdf73b5a92ed7fd2adc8e3929aeddab7a2ec0a08b83b80c051d2c392  WiFiMedic-Pro-1.0.0-Portable.exe
+c153e5c7c3e470330a46f28b3cb2fae0405c413d8eaa77effaaaf0622905262a  WiFiMedic-Android-1.0.0.apk
+cd441963e60fc4fa648618147499efddccd75ad39fae493357dbeb10402f298e  WiFiMedic-1.0.0-源码.zip
+1a5c90a1ff676467e781f88b794480980300732be662ae383fafd92b4ec36879  WiFiMedic-使用说明.md
